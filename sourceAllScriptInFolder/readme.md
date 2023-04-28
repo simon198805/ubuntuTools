@@ -1,4 +1,4 @@
-# Readme
+# sourceAllScriptsInFolder
 
 This is a Bash script that sources all other `.sh` scripts in the same directory as the script, except for itself.
 
