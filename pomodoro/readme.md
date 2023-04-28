@@ -1,11 +1,10 @@
-# Worklog Script
+# Worklogger
 
-The Worklog Script is a Bash script that enables you to track your work by recording your work duration, category, and description in a log file. Additionally, you can view the log file and category file using the script.
-
+The Worklogger enables you to track your work by recording your work duration, category, and description in a log file. Additionally, you can view the log file and category file.
 ## Usage
 
 ```
-worklog [duration] [--view] [--viewcat] [--closegnome] [--help]
+worklogger.sh [duration] [--view] [--viewcat] [--closegnome] [--help]
 ```
 
 ### Arguments

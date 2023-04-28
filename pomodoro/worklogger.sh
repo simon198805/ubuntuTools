@@ -18,11 +18,11 @@ for i in "$@"; do
             VAR_TERM=true	
             ;;
         --help)
-		  echo "Usage: worklog [duration] [--view] [--viewcat] [--closegnome] [--help]"
+		  echo "Usage: worklogger.sh [duration] [--view] [--viewcat] [--closegnome] [--help]"
 		  echo "  duration: the duration of the work in seconds (optional)"
 		  echo "  --view: view the worklog file after recording"
 		  echo "  --viewcat: view the categories file"
-		  echo "  --closegnome: close the Gnome shell (useful when running through keyboard shortcut)"
+		  echo "  --closegnome: closes the Gnome shell after recording (useful with Pomodoro)"
 		  echo "  --help: display this help message"
 		  exit 0
             ;;
