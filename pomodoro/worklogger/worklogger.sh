@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if command -v gnome-pomodoro>/dev/null ; then
+	gnome-pomodoro --pause
+fi
+
 WORK_DIR="$HOME/Documents/worklog/"
 record_file=$WORK_DIR/$(date +"%m%y")
 cat_file=$WORK_DIR/"categories.txt"
@@ -103,6 +107,11 @@ else
 fi
 
 echo "$timestamp:$duration:$category:$description" >> "$record_file"
+
+
+if command -v gnome-pomodoro>/dev/null
+	gnome-pomodoro --resume
+fi
 
 if [[ $VAR_TERM == true ]]; then
     # Terminate gnome shell explicitly
