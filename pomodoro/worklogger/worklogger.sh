@@ -3,6 +3,8 @@
 WORK_DIR="$HOME/Documents/worklog/"
 record_file=$WORK_DIR/$(date +"%m%y")
 cat_file=$WORK_DIR/"categories.txt"
+# uset the timpstamp when entering the script
+timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 
 for i in "$@"; do
     case $i in
@@ -52,21 +54,24 @@ else
     printf '%s\n' "${options[@]}" > "$cat_file"
 fi
 
-echo "Please describe this record:"
-read description
-
-if [[ -z "$description" ]]; then
     last_record=$(tail -n 1 "$record_file" 2>/dev/null)
     if [[ -n "$last_record" ]]; then
-        category=$(echo "${last_record}" | cut -d ':' -f 3)
-        description=$(echo "${last_record}" | cut -d ':' -f 4-)
+        last_category=$(echo "${last_record}" | cut -d ':' -f 3)
+        last_description=$(echo "${last_record}" | cut -d ':' -f 4-)
     else
-        category=""
-        description=""
+        last_category=""
+        last_description=""
     fi
-fi
 
-if [[ -z "$category" ]]; then
+echo "Please describe this record (last description >$last_description<, last cat >$last_category<, leave empty will apply last rec):"
+read description
+
+# if no description, apply last
+if [[ -z "$description" ]]; then
+	category=$last_category
+	description=$last_description
+else
+# ask for category if there's description input
     for i in "${!options[@]}"; do
         echo "$((i+1)). ${options[i]}"
     done
@@ -90,8 +95,6 @@ if [[ -z "$category" ]]; then
         fi
     done
 fi
-
-timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 
 if [[ -n "$1" ]]; then
     duration="$(echo "scale=0; $1/60" | bc)"
