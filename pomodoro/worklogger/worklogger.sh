@@ -109,12 +109,13 @@ fi
 echo "$timestamp:$duration:$category:$description" >> "$record_file"
 
 
-if command -v gnome-pomodoro>/dev/null
+if command -v gnome-pomodoro>/dev/null; then
 	gnome-pomodoro --resume
 fi
 
 if [[ $VAR_TERM == true ]]; then
     # Terminate gnome shell explicitly
-    xdotool key Ctrl+Shift+W
+    echo "close gnome"
+    xdotool windowclose `xdotool getactivewindow`
 fi
 
