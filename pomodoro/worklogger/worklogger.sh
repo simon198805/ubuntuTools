@@ -4,11 +4,14 @@ if command -v gnome-pomodoro>/dev/null ; then
 	gnome-pomodoro --pause
 fi
 
+start_time=$(date +%s)
+
 WORK_DIR="$HOME/Documents/worklog/"
+#WORK_DIR="."
+MIN_OT=5	# ask if OT count is OT is more then $MIN_OT min
+
 record_file=$WORK_DIR/$(date +"%m%y")
 cat_file=$WORK_DIR/"categories.txt"
-# uset the timpstamp when entering the script
-timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 
 for i in "$@"; do
     case $i in
@@ -106,16 +109,32 @@ else
     duration=0
 fi
 
-echo "$timestamp:$duration:$category:$description" >> "$record_file"
+script_time=$(expr \( $(date +%s) - $start_time \) / 60)
+#script_time=5
+if [ $script_time -ge $MIN_OT ]; then
+	echo "apply OT $script_time min? (N/y)"
+	read OT_opt
+	if [ $OT_opt == "y" ];then
+	    echo "append script time >$script_time< to duration >$duration<"
+	    duration=$(expr $duration + $script_time )
+	else
+	    echo "Not taking OT, duration >$duration<"
+	fi
+fi
+
+rec="$(date +"%Y-%m-%d_%H-%M-%S"):$duration:$category:$description"
+echo "new recode >$rec<"
+echo "$rec" >> "$record_file"
 
 
 if command -v gnome-pomodoro>/dev/null; then
-	gnome-pomodoro --resume
+    echo resume pomodoro
+    gnome-pomodoro --resume
 fi
 
 if [[ $VAR_TERM == true ]]; then
     # Terminate gnome shell explicitly
-    echo "close gnome"
-    xdotool windowclose `xdotool getactivewindow`
+    echo "close worklogger"
+    xdotool windowclose `xdotool search --name worklogger`
 fi
 
