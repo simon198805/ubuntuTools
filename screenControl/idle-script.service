@@ -4,6 +4,6 @@ Description=Idle Script
 [Service]
 ExecStart=/bin/bash -c '/home/tach/prog/personalScript/ubuntuTools/screenControl/externScreenControl.sh'
 Restart=always
-
+User=tach
 [Install]
 WantedBy=default.target
