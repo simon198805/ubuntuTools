@@ -132,9 +132,3 @@ if command -v gnome-pomodoro>/dev/null; then
     gnome-pomodoro --resume
 fi
 
-if [[ $VAR_TERM == true ]]; then
-    # Terminate gnome shell explicitly
-    echo "close worklogger"
-    xdotool windowclose `xdotool search --name worklogger`
-fi
-
