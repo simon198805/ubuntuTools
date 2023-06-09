@@ -2,8 +2,10 @@
 Description=Idle Script
 
 [Service]
-ExecStart=/bin/bash -c '/home/tach/prog/personalScript/ubuntuTools/screenControl/externScreenControl.sh'
-Restart=always
-User=tach
+Type=simple
+ExecStart=/home/tach/prog/personalScript/ubuntuTools/screenControl/externScreenControl.sh
+Restart=on-failure
+StandardOutput=file:%h/logs/services/idle_script.log
+
 [Install]
 WantedBy=default.target

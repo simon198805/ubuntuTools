@@ -1,0 +1,21 @@
+# How to install
+find the possible install path by
+```
+systemd-analyze --user unit-paths
+```
+I used `~/.config/systemd/user`
+
+*You may need to create the folder yourself*
+
+create `idle-script.service` symbolic link to `~/.config/systemd/user`
+
+execute
+
+```
+systemctl --user daemon-reload 
+systemctl --user start idle-script.service 
+systemctl --user status idle-script.service 
+```
+
+
+

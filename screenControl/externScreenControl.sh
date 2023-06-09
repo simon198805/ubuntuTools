@@ -19,8 +19,7 @@ CHECK_PERIOD=$CP_WAKE
 
 while true; do
     IDLE_TIME=$(( $(xprintidle) / 100 ))
-
-    echo IDLE_TIME $IDLE_TIME
+    # echo IDLE_TIME $IDLE_TIME
     if [[ $IDLE_TIME -gt $IDLE_THRESHOLD  && "$IN_IDLE" != true ]]; then
             # this operation could reset idle time, mouse pos may be changed
             xrandr --output $EXTSCR --off
