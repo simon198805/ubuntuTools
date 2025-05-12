@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if command -v gnome-pomodoro>/dev/null ; then
-	gnome-pomodoro --pause
-fi
+# if command -v gnome-pomodoro>/dev/null ; then
+# 	gnome-pomodoro --pause
+# fi
 
 start_time=$(date +%s)
 
@@ -70,7 +70,7 @@ fi
         last_description=""
     fi
 
-echo "Please describe this record (last description >$last_description<, last cat >$last_category<, leave empty will apply last rec):"
+echo "$(date): Please describe this record (last description >$last_description<, last cat >$last_category<, leave empty will apply last rec):"
 read description
 
 # if no description, apply last
@@ -127,8 +127,8 @@ echo "new recode >$rec<"
 echo "$rec" >> "$record_file"
 
 
-if command -v gnome-pomodoro>/dev/null; then
-    echo resume pomodoro
-    gnome-pomodoro --resume
-fi
+# if command -v gnome-pomodoro>/dev/null; then
+#     echo resume pomodoro
+#     gnome-pomodoro --resume
+# fi
 
