@@ -1,0 +1,28 @@
+{
+    "secs.log": {
+        "patterns": [
+            "sxhsms:",
+            "sxsockwrite:",
+            "SECS::RCMD:"
+        ]
+    },
+    "state-change.log":
+    {
+     "patterns":["FcState-Transition"],"keep_all_blocks":true
+    },
+    "notImportant.log": {
+        "patterns": [
+            "tAging: aging.cpp",
+            "CyclicTask",
+            "stddeviation.cpp",
+            "GateTask: waferhandle.cpp",
+            "Cfl     : waferhandle.cpp:524",
+            "Osiris: QtDebugMsg: QOpenGLFramebufferObject: Framebuffer",
+            "PmLaunch: DurableHandling",
+            ": getText: TextRef",
+            "Failed to setup gRPC channel",
+            "tAoDataCollection::Component::ProcessCycleService",
+            "semiE142 Error: Map.*not found"
+        ]
+    }
+}
