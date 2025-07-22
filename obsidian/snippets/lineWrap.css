@@ -1,0 +1,4 @@
+/* code block only - scrollbar. Editing & Reading */                            
+.HyperMD-codeblock, .markdown-preview-view pre code {                           
+    white-space: pre;                                                           
+}    
