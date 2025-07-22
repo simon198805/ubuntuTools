@@ -23,6 +23,9 @@ show_help() {
   echo "Examples:"
   echo "  $0 ~/Documents/ObsidianVault"
   echo "  $0 /path/to/my/notes"
+  echo ""
+  echo "Note: The 'snippets' directory must exist in the current working directory."
+  echo "      If it doesn't, please create it before running this script."
 }
 
 # --- Main Script Logic ---
@@ -77,19 +80,23 @@ fi
 if [ -L "$DEST_SNIPPETS_LINK" ]; then
   echo "Existing symbolic link found at '$DEST_SNIPPETS_LINK'. Removing it..."
   rm "$DEST_SNIPPETS_LINK"
+  # Proceed to create the new symbolic link after removing the old one.
 elif [ -d "$DEST_SNIPPETS_LINK" ]; then
-  echo "Warning: A directory already exists at '$DEST_SNIPPETS_LINK'."
-  echo "This script will attempt to replace it with a symbolic link."
-  echo "It is recommended to manually move or delete it if you want to preserve its contents."
-  read -p "Do you want to proceed and replace it? (y/N): " confirm_replace
-  if [[ ! "$confirm_replace" =~ ^[Yy]$ ]]; then
-    echo "Aborting. Please handle the existing directory manually."
-    exit 0
+  echo "A directory already exists at '$DEST_SNIPPETS_LINK'."
+  echo "Copying contents from '$SOURCE_SNIPPETS_DIR' into it."
+  # Copy all files and directories from source to destination, overwriting existing ones.
+  cp -r "$SOURCE_SNIPPETS_DIR"/* "$DEST_SNIPPETS_LINK"/
+  if [ $? -eq 0 ]; then
+    echo "Contents copied successfully to '$DEST_SNIPPETS_LINK'!"
+    echo "Obsidian snippets should now be available in your vault."
+    exit 0 # Exit after copying, as symbolic link is not needed
+  else
+    echo "Error: Failed to copy contents to '$DEST_SNIPPETS_LINK'."
+    exit 1
   fi
-  rm -rf "$DEST_SNIPPETS_LINK" # Use -rf to remove directory and its contents
 fi
 
-# Create the symbolic link.
+# Create the symbolic link. This part is skipped if a directory already existed and contents were copied.
 echo "Creating symbolic link from '$SOURCE_SNIPPETS_DIR' to '$DEST_SNIPPETS_LINK'..."
 ln -s "$SOURCE_SNIPPETS_DIR" "$DEST_SNIPPETS_LINK"
 
@@ -101,6 +108,4 @@ else
   echo "Error: Failed to create symbolic link."
   exit 1
 fi
-
-return 0
 
